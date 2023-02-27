@@ -11,8 +11,6 @@ if not path.exists(file_base):
 
 
 def read_records():
-    """Считывание данных из базы"""
-
     global all_data, last_id
 
     with open(file_base, "r", encoding="utf-8") as f:
@@ -24,8 +22,6 @@ def read_records():
 
 
 def show_all():
-    """Отображение содержимого базы данных"""
-
     if not all_data:
         print("Файл базы создан, но там Пусто !!!")
     else:
@@ -33,9 +29,7 @@ def show_all():
 
 
 def add_new_contact():
-    """Добавление новой записи"""
     global last_id
-
     array = ['Фамилия', 'Имя', 'Отчество', 'Телефон']
     answers = []
     for i in array:
@@ -53,12 +47,6 @@ def add_new_contact():
 
 
 def exist_contact(rec_id, data):
-    """Проверка записи в базе
-
-    :type data: проверка записи
-    :type rec_id: проверка id
-    """
-
     if rec_id:
         candidates = [i for i in all_data if rec_id in i[0]]
     else:
@@ -67,8 +55,6 @@ def exist_contact(rec_id, data):
 
 
 def data_collection(num):
-    """Проверка полученных данных"""
-
     answer = input(f"Введите  {num}: ")
     while True:
         if num in "Фамилия Имя Отчество":
@@ -84,8 +70,6 @@ def data_collection(num):
 
 
 def change_contact(data_tuple):
-    """Изменение существующей записи"""
-
     global all_data
     symbol = "\n"
 
@@ -107,8 +91,6 @@ def change_contact(data_tuple):
 
 
 def del_contact():
-    """Удаление записи"""
-
     global all_data
 
     symbol = "\n"
@@ -123,20 +105,3 @@ def del_contact():
         print("Запись удалена, без проблем!\n")
     else:
         print("Что-то пошло не так,пробуйте заново!")
-
-
-def exp_bd(name):
-    """Сохранение данных в новый файл"""
-    global all_data
-    symbol = "\n"
-
-    if not path.exists(name):
-        with open(f"{name}.txt", "w", encoding="utf-8") as f:
-            f.write(f'{symbol.join(all_data)}\n')
-
-
-def ipm_bd(name):
-    global file_base
-    if path.exists(name):
-        file_base = name
-        read_records()
